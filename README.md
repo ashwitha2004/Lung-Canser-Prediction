@@ -13,22 +13,15 @@ The "Lung Cancer Prediction" project aims to provide an accessible and user-frie
 
 ## ✨ Features
 
--   🎯 **Risk Prediction Engine**: Utilizes a trained machine learning model to predict lung cancer risk.
--   📝 **Interactive Data Input Form**: Allows users to input relevant health, demographic, and lifestyle information.
--   📊 **Intuitive Results Display**: Presents prediction outcomes clearly, making them easy to understand.
--   🌐 **Web-Based Interface**: Accessible via a browser, powered by the Django framework.
--   🗄️ **SQLite Database**: Manages application data efficiently.
+-   **Risk Prediction Engine**: Utilizes a trained machine learning model to predict lung cancer risk.
+-   **Interactive Data Input Form**: Allows users to input relevant health, demographic, and lifestyle information.
+-   **Intuitive Results Display**: Presents prediction outcomes clearly, making them easy to understand.
+-   **Web-Based Interface**: Accessible via a browser, powered by the Django framework.
+-   **SQLite Database**: Manages application data efficiently.
 
 ## 🖥️ Screenshots
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/1c2916d0-f5fa-4d5f-8654-3035b871b7cf" />
 
-Screenshots of the application interface are available in the `SCREENS.docx` file in the repository.
-
-<!-- TODO: Convert screenshots from SCREENS.docx to image files (e.g., .png, .jpg) and link them here. -->
-<!--
-![Screenshot of Home Page](path-to-home-screenshot.png)
-![Screenshot of Prediction Form](path-to-form-screenshot.png)
-![Screenshot of Results Page](path-to-results-screenshot.png)
--->
 
 ## 🛠️ Tech Stack
 

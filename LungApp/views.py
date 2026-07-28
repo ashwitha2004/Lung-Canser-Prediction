@@ -23,6 +23,11 @@ import random
 import smtplib
 from datetime import date
 
+try:
+    from .local_settings import MYSQL_PASSWORD
+except ImportError:
+    MYSQL_PASSWORD = 'your_mysql_password'
+
 global uname, utype, otp
 global X_train, X_test, y_train, y_test, X, Y, dataset, rf, scaler, le
 
@@ -94,7 +99,7 @@ def AnalysePatient(request):
         output+='<td><font size="" color="black">Predicted Stage</td>'
         output+='<td><font size="" color="black">Date</td></tr>'
         rank = []
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
+        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = MYSQL_PASSWORD, database = 'lungdisease',charset='utf8')
         with con:
             cur = con.cursor()
             cur.execute("select * FROM patients")
@@ -163,7 +168,7 @@ def PredictDiseaseAction(request):
         elif predict == 2:
             output = "Medium"
         today = str(date.today())    
-        db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
+        db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = MYSQL_PASSWORD, database = 'lungdisease',charset='utf8')
         db_cursor = db_connection.cursor()
         student_sql_query = "INSERT INTO patients(patient_name,patient_data,predicted_stage,process_date) VALUES('"+uname+"','"+input_values+"','"+output+"','"+today+"')"
         db_cursor.execute(student_sql_query)
@@ -211,7 +216,7 @@ def RegisterAction(request):
         utype = request.POST.get('t6', False)
         
         status = "none"
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
+        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = MYSQL_PASSWORD, database = 'lungdisease',charset='utf8')
         with con:    
             cur = con.cursor()
             cur.execute("select username FROM register")
@@ -221,7 +226,7 @@ def RegisterAction(request):
                     status = "Username already exists"
                     break
         if status == "none":
-            db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
+            db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = MYSQL_PASSWORD, database = 'lungdisease',charset='utf8')
             db_cursor = db_connection.cursor()
             student_sql_query = "INSERT INTO register(username,password,contact_no,email,address,usertype) VALUES('"+username+"','"+password+"','"+contact+"','"+email+"','"+address+"','"+utype+"')"
             db_cursor.execute(student_sql_query)
@@ -264,7 +269,7 @@ def PatientLoginAction(request):
             host='127.0.0.1',
             port=3306,
             user='root',
-            password='ashwitha',
+            password=MYSQL_PASSWORD,
             database='lungdisease',
             charset='utf8'
         )
@@ -302,7 +307,7 @@ def DoctorLoginAction(request):
         password = request.POST.get('password', False)
         index = 0
         status = 'Username does not exist'
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
+        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = MYSQL_PASSWORD, database = 'lungdisease',charset='utf8')
         with con:
             cur = con.cursor()
             cur.execute("select username, password, usertype, email FROM register")

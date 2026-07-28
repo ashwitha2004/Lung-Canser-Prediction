@@ -1,3 +1,5 @@
 venv/
 cookies.txt
 server.log
+LungApp/local_settings.py
+LungApp/__pycache__/local_settings*.pyc

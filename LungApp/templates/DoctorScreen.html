@@ -12,13 +12,13 @@
 			<center><font size="4" color="yellow"><font size="4" color="black">Lung Cancer Prediction</font></center></font>
 		</div>
 		<div id="slogan">
-			
+
 		</div>
 	</div>
 	<div id="menu">
 		<ul><center>
 		<li><a href="{% url 'AnalysePatient' %}"><font size="3" color="black">Analyse Patient Data</font></a></font></li>
-	     <li><a href="{% url 'index' %}"><font size="3" color="black">Logout</font></a></font></li>		
+	     <li><a href="{% url 'index' %}"><font size="3" color="black">Logout</font></a></font></li>
 		</center></ul>
 		<br class="clearfix" />
 	</div>
@@ -29,6 +29,6 @@
 	<font size="" color="black"><center>{{ data|safe }}</center></font><br/>
 	<img src="data:image/png;base64, {{ img }}" alt="" />
 
-	
+
 </body>
 </html>

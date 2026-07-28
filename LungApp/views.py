@@ -94,7 +94,7 @@ def AnalysePatient(request):
         output+='<td><font size="" color="black">Predicted Stage</td>'
         output+='<td><font size="" color="black">Date</td></tr>'
         rank = []
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'lungdisease',charset='utf8')
+        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
         with con:
             cur = con.cursor()
             cur.execute("select * FROM patients")
@@ -121,6 +121,7 @@ def AnalysePatient(request):
 def PredictDiseaseAction(request):
     if request.method == 'POST':
         global uname, rf, scaler
+        uname = request.session.get('username')
         age = request.POST.get('t1', False)
         gender = request.POST.get('t2', False)
         pollution = request.POST.get('t3', False)
@@ -162,7 +163,7 @@ def PredictDiseaseAction(request):
         elif predict == 2:
             output = "Medium"
         today = str(date.today())    
-        db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'lungdisease',charset='utf8')
+        db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
         db_cursor = db_connection.cursor()
         student_sql_query = "INSERT INTO patients(patient_name,patient_data,predicted_stage,process_date) VALUES('"+uname+"','"+input_values+"','"+output+"','"+today+"')"
         db_cursor.execute(student_sql_query)
@@ -210,7 +211,7 @@ def RegisterAction(request):
         utype = request.POST.get('t6', False)
         
         status = "none"
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'lungdisease',charset='utf8')
+        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
         with con:    
             cur = con.cursor()
             cur.execute("select username FROM register")
@@ -220,7 +221,7 @@ def RegisterAction(request):
                     status = "Username already exists"
                     break
         if status == "none":
-            db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'lungdisease',charset='utf8')
+            db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
             db_cursor = db_connection.cursor()
             student_sql_query = "INSERT INTO register(username,password,contact_no,email,address,usertype) VALUES('"+username+"','"+password+"','"+contact+"','"+email+"','"+address+"','"+utype+"')"
             db_cursor.execute(student_sql_query)
@@ -257,26 +258,41 @@ def PatientLoginAction(request):
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         index = 0
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'lungdisease',charset='utf8')
-        with con:    
+        status = 'Username does not exist'
+
+        con = pymysql.connect(
+            host='127.0.0.1',
+            port=3306,
+            user='root',
+            password='ashwitha',
+            database='lungdisease',
+            charset='utf8'
+        )
+
+        with con:
             cur = con.cursor()
             cur.execute("select username, password, usertype, email FROM register")
             rows = cur.fetchall()
+
             for row in rows:
-                if row[0] == username and password == row[1] and row[2] == 'Patient':
-                    email = row[3]
-                    uname = username
-                    utype = "Patient"
-                    otp = str(random.randint(1000, 9999))
-                    index = 1
-                    sendOTP(email, otp)
-                    break		
+                if row[0] == username and row[2] == 'Patient':
+                    if row[1] == password:
+                        email = row[3]
+                        uname = username
+                        request.session['username'] = username   # Added session storage
+                        utype = "Patient"
+                        otp = str(random.randint(1000, 9999))
+                        index = 1
+                    else:
+                        status = 'Password does not match'
+                    break
+
         if index == 1:
-            context= {'data':'OTP sent to your mail to continue login'}
+            context = {'data': 'Your OTP is '+otp}
             return render(request, 'OTP.html', context)
         else:
-            context= {'data':'login failed'}
-            return render(request, 'PatientLogin.html', context)                 
+            context = {'data': status}
+            return render(request, 'PatientLogin.html', context)
 
 
 def DoctorLoginAction(request):
@@ -285,23 +301,27 @@ def DoctorLoginAction(request):
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
         index = 0
-        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'lungdisease',charset='utf8')
-        with con:    
+        status = 'Username does not exist'
+        con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'ashwitha', database = 'lungdisease',charset='utf8')
+        with con:
             cur = con.cursor()
             cur.execute("select username, password, usertype, email FROM register")
             rows = cur.fetchall()
             for row in rows:
-                if row[0] == username and password == row[1] and row[2] == 'Doctor':
-                    email = row[3]
-                    uname = username
-                    utype = "Doctor"
-                    index = 1
-                    break		
+                if row[0] == username and row[2] == 'Doctor':
+                    if row[1] == password:
+                        email = row[3]
+                        uname = username
+                        utype = "Doctor"
+                        index = 1
+                    else:
+                        status = 'Password does not match'
+                    break
         if index == 1:
             context= {'data':'Welcome '+uname}
             return render(request, 'DoctorScreen.html', context)
         else:
-            context= {'data':'login failed'}
-            return render(request, 'DoctorLogin.html', context)                 
+            context= {'data':status}
+            return render(request, 'DoctorLogin.html', context)
 
         

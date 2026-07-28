@@ -11,7 +11,7 @@ function validate(){
 	var a=document.forms["f1"]["t3"].value;
 	var b=document.forms["f1"]["t4"].value;
 	var c=document.forms["f1"]["t5"].value;
-	
+
 	if(x == null || x==""){
 		window.alert("Username must be enter");
 		document.f1.t1.focus();
@@ -53,8 +53,8 @@ function validate(){
 	}
 	return true;
 }
-		
-	
+
+
 	</script>
 </head>
 <body>
@@ -64,7 +64,7 @@ function validate(){
 			<center><font size="4" color="yellow"><font size="4" color="black">Lung Cancer Prediction</font></center></font>
 		</div>
 		<div id="slogan">
-			
+
 		</div>
 	</div>
 	<div id="menu">
@@ -76,21 +76,21 @@ function validate(){
 		</center></ul>
 <br class="clearfix" />
 				</div>
-			
+
 	<div id="splash">
 		<img class="pic" src="{% static 'images/investor.jpg' %}" width="870" height="230" alt="" />
-	</div>	
+	</div>
 			<center>
 <form name="f1" method="post" action={% url 'RegisterAction' %} OnSubmit="return validate()">
 	{% csrf_token %}<br/>
    <h3><b>User Signup Screen</b></h3>
-   
+
 	<font size="" color="black"><center>{{ data|safe }}</center></font>
-						
+
 						<table align="center" width="80" >
 			 <tr><td><font size="" color="black">Username&nbsp;&nbsp;</b></td><td><input type="text" name="t1" style="font-family: Comic Sans MS" size="25"/></td></tr>
-         
-		  
+
+
 		<tr><td><font size="" color="black">Password&nbsp;&nbsp;</b></td><td><input type="password" name="t2" style="font-family: Comic Sans MS" size="25"/></td></tr>
 
 		<tr><td><font size="" color="black">Contact&nbsp;No&nbsp;</b></td><td><input type="text" name="t3" style="font-family: Comic Sans MS" size="15"/></td></tr>
@@ -104,14 +104,14 @@ function validate(){
 		<option value="Patient">Patient</option>
 		</select>
 		</td></tr>
-		 
+
 			<tr><td></td><td><input type="submit" value="Submit">
 			</td>
 			</table>
 			<br/><br/><br/><br/>
-				</div>	
-					
 				</div>
-				
+
+				</div>
+
 	</body>
 </html>

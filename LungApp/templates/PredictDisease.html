@@ -7,17 +7,17 @@
  <script LANGUAGE="Javascript" >
 function validate(){
 	var x=document.forms["f1"]["t1"].value;
-	
+
 	if(x == null || x==""){
 		window.alert("Age must be enter");
 		document.f1.t1.focus();
 		return false;
 	}
-	
+
 	return true;
 }
-		
-	
+
+
 	</script>
  </head>
 <body>
@@ -27,7 +27,7 @@ function validate(){
 			<center><font size="4" color="yellow"><font size="4" color="black">Lung Cancer Prediction</font></center></font>
 		</div>
 		<div id="slogan">
-			
+
 		</div>
 	</div>
 	<div id="menu">
@@ -35,25 +35,24 @@ function validate(){
 		<li><a href="{% url 'TrainML' %}"><font size="3" color="black">Train ML Algorithm</font></a></font></li>
 	    <li><a href="{% url 'DatasetVisualize' %}"><font size="3" color="black">Lung Disease Visualization</font></a></font></li>
 	   <li><a href="{% url 'PredictDisease' %}"><font size="3" color="black">Predict Lung Disease</font></a></font></li>
-	    <li><a href="{% url 'index' %}"><font size="3" color="black">Logout</font></a></font></li>		
+	    <li><a href="{% url 'index' %}"><font size="3" color="black">Logout</font></a></font></li>
 		</center></ul>
-<br class="clearfix" />
-				</div>
-			
+		<br class="clearfix" />
+	</div>
 	<div id="splash">
 		<img class="pic" src="{% static 'images/investor.jpg' %}" width="870" height="230" alt="" />
-	</div>	
+	</div>
 			<center>
 <form name="f1" method="post" action={% url 'PredictDiseaseAction' %} OnSubmit="return validate()">
 	{% csrf_token %}<br/>
    <h3><b>Lung Cancer Prediction Screen</b></h3>
-   
+
 	<font size="" color="black"><center>{{ data }}</center></font>
-						
+
 						<table align="center" width="80" >
 			 <tr><td><font size="" color="black">Age&nbsp;&nbsp;</b></td><td><input type="text" name="t1" style="font-family: Comic Sans MS" size="15"/></td>
-         
-		  
+
+
 		<td><font size="" color="black">Gender&nbsp;&nbsp;</b></td><td><select name="t2">
 		<option value="1">Male</option>
 		<option value="2">Female</option>
@@ -71,8 +70,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Alcohol&nbsp;Use&nbsp;</b></td><td><select name="t4">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -96,8 +95,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">OccuPational&nbsp;Hazards&nbsp;</b></td><td><select name="t6">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -121,8 +120,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Chronic&nbsp;Lung&nbsp;Disease</b></td><td><select name="t8">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -146,8 +145,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Obesity&nbsp;&nbsp;</b></td><td><select name="t10">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -171,8 +170,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Passive&nbsp;Smoker&nbsp;</b></td><td><select name="t12">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -196,8 +195,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Coughing&nbsp;Of&nbsp;Blood</b></td><td><select name="t14">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -221,8 +220,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Weight&nbsp;Loss&nbsp;</b></td><td><select name="t16">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -246,8 +245,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Wheezing&nbsp;&nbsp;</b></td><td><select name="t18">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -271,8 +270,8 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td>
-         
-		  
+
+
 		<td><font size="" color="black">Clubbing&nbsp;Finger&nbsp;Nails</b></td><td><select name="t20">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -320,14 +319,14 @@ function validate(){
 		<option value="8">8</option>
 		</select>
 		</td></tr>
-		 
+
 			<tr><td></td><td><input type="submit" value="Submit">
 			</td>
 			</table>
 			<br/><br/><br/><br/>
-				</div>	
-					
 				</div>
-				
+
+				</div>
+
 	</body>
 </html>
